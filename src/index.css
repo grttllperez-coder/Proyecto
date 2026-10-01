@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #7D57A8;
+  --color-primary-dark: #68458F;
+  --color-primary-light: #B79BD4;
+  --color-accent: #B79BD4;
+  --color-accent-dark: #68458F;
+  --color-stone: #7D6E8D;
+  --color-stone-light: #756B7E;
+  --color-warm: #E1D1F0;
+  --color-warm-dark: #D4C0E6;
+  --color-surface: #FBF8FF;
+  --color-dark: #29323A;
+  --color-ink: #3F3947;
+  --color-muted: #6B6470;
+  --color-border: #C5AFE0;
+  --font-display: "DM Serif Display", Georgia, serif;
+  --font-sans: "Outfit", system-ui, sans-serif;
+}
+
+html, body, #root {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #E4D7F2;
+  color: #49365C;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #9A78BA; border-radius: 4px; }
+
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(28, 20, 16, 0.12);
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.map-store:hover { cursor: pointer; filter: brightness(0.9); }
+.map-store.selected { stroke: #8B6FB3; stroke-width: 2.5; filter: drop-shadow(0 0 6px rgba(169,107,69,0.28)); }
+
+
+.label-elegant {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #6E5B7D;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.input-elegant {
+  width: 100%;
+  border: 1px solid #C5AFE0;
+  background: #FBF8FF;
+  color: #49365C;
+  border-radius: 0.75rem;
+  padding: 0.75rem 0.85rem;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.input-elegant::placeholder { color: #756582; }
+.input-elegant:focus {
+  border-color: #8B6FB3;
+  box-shadow: 0 0 0 3px rgba(125, 87, 168, .16);
+}
+.eyebrow-elegant {
+  color: #8B6FB3;
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+}
+
+/* Paleta pastel lila: fondo tenue, superficies lavanda y contraste suave. */
+::selection {
+  background: #CBB7DF;
+  color: #29323A;
+}
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid rgba(125, 87, 168, .28);
+  outline-offset: 2px;
+}
