@@ -1,10 +1,6 @@
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
+import { stores, promotions, localSpaces, restaurants, services, cargarCatalogo } from "./lib/catalogo";
 import {
-  stores,
-  promotions,
-  localSpaces,
-  restaurants,
-  services,
   categoryLabels,
   categoryColors,
   categoryIcons,
@@ -2578,6 +2574,17 @@ function AdminPage({ user, onNavigate }: { user: AuthUser; onNavigate: (page: Pa
 // ─── App ──────────────────────────────────────────────────────────────────────
 
 export default function App() {
+  const [catalogoListo, setCatalogoListo] = useState(false);
+  const [errorCatalogo, setErrorCatalogo] = useState("");
+  useEffect(() => {
+    let activo = true;
+    cargarCatalogo().then(() => {
+      if (activo) setCatalogoListo(true);
+    }).catch((error: unknown) => {
+      if (activo) setErrorCatalogo(error instanceof Error ? error.message : "No se pudo cargar el catálogo");
+    });
+    return () => { activo = false; };
+  }, []);
   const [page, setPage] = useState<Page>("home");
   const [selectedStoreId, setSelectedStoreId] = useState<string | null>(null);
   const [selectedPromoId, setSelectedPromoId] = useState<string | null>(null);
@@ -2700,6 +2707,15 @@ export default function App() {
         return null;
     }
   };
+
+  if (errorCatalogo) return (
+    <main style={{ padding: 32 }}>
+      <h1>No se pudo cargar el catálogo</h1>
+      <p>{errorCatalogo}</p>
+      <button onClick={() => window.location.reload()}>Reintentar</button>
+    </main>
+  );
+  if (!catalogoListo) return <main style={{ padding: 32 }}>Cargando catálogo…</main>;
 
   return (
     <div className="min-h-screen bg-[#E4D7F2]">
